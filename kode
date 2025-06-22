@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Remaining Coffee Time</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #countdown {
+            font-size: 2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Remaining Coffee Time</h1>
+    <div id="countdown"></div>
+
+    <script>
+        function updateCountdown() {
+            // Get the current time in CEST
+            var now = new Date();
+            var currentTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Copenhagen"}));
+
+            // Set the end time (17:00 CEST)
+            var endTime = new Date(currentTime);
+            endTime.setHours(17, 0, 0, 0);
+
+            // Calculate the remaining time
+            var remainingTime = endTime - currentTime;
+
+            // If the remaining time is less than 0, set it to 0
+            if (remainingTime < 0) {
+                remainingTime = 0;
+            }
+
+            // Calculate hours, minutes, and seconds
+            var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+            // Display the countdown
+            document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+            // Update the countdown every second
+            setTimeout(updateCountdown, 1000);
+        }
+
+        // Initialize the countdown
+        updateCountdown();
+    </script>
+</body>
+</html>
